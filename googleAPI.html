@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>test</title>
+    <script src="google.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUxzgZX2YodxqBWnuOOxhz8Y5IfWHYGfw&libraries=places"></script>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+          * element that contains the map. */
+        #myMap {
+          height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+        #right-panel {
+          font-family: 'Roboto','sans-serif';
+          line-height: 30px;
+          padding-left: 10px;
+        }
+  
+        #right-panel select, #right-panel input {
+          font-size: 15px;
+        }
+  
+        #right-panel select {
+          width: 100%;
+        }
+  
+        #right-panel i {
+          font-size: 12px;
+        }
+        #right-panel {
+          font-family: Arial, Helvetica, sans-serif;
+          position: absolute;
+          right: 5px;
+          top: 60%;
+          margin-top: -205px;
+          height: 350px;
+          width: 200px;
+          padding: 5px;
+          z-index: 5;
+          border: 1px solid #999;
+          background-color: #eedf58;
+        }
+
+        h2 {
+          margin: 0 0 2px 0;
+          text-align: center;
+          letter-spacing: 30px;
+        }
+        ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+          height: 271px;
+          width: 200px;
+          overflow-y: scroll;
+        }
+        ul::-webkit-scrollbar{
+          background-color: #CE98B0;
+        }
+        ul::-webkit-scrollbar-thumb{
+          background-color: #eedf58;
+        }
+        li {
+          background-color: #CE98B0;
+          padding: 0 5px 0;
+          font-size: 12px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          cursor: pointer;
+        }
+        /* li:nth-child(odd) {
+          background-color: #fcfcfc;
+        } */
+        li:hover {
+          background-color: #ec6f6f;
+        }
+        #more {
+          width: 100%;
+          margin: 5px 0 0 0;
+        }
+
+        .controls {
+          margin-top: 10px;
+          border: 1px solid transparent;
+          border-radius: 2px 0 0 2px;
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          height: 32px;
+          outline: none;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #origin-input,
+        #destination-input {
+          background-color: #fff;
+          font-family: Roboto;
+          font-size: 15px;
+          font-weight: 300;
+          margin-left: 12px;
+          padding: 0 11px 0 13px;
+          text-overflow: ellipsis;
+          width: 200px;
+        }
+
+        #origin-input:focus,
+        #destination-input:focus {
+          border-color: #4d90fe;
+        }
+
+        #mode-selector {
+          color: #fff;
+          background-color: #4d90fe;
+          margin-left: 12px;
+          padding: 5px 11px 0px 11px;
+        }
+
+        #mode-selector label {
+          font-family: Roboto;
+          font-size: 13px;
+          font-weight: 300;
+        }
+    </style>
+</head>
+<body>
+    <div style="display: none">
+      <input id="origin-input" class="controls" type="text"
+          placeholder="RedSo" disabled>
+
+      <input id="destination-input" class="controls" type="text"
+          placeholder="Enter a destination location">
+
+      <div id="mode-selector" class="controls">
+        <input type="radio" name="type" id="changemode-walking" checked="checked">
+        <label for="changemode-walking">Walking</label>
+
+        <input type="radio" name="type" id="changemode-transit">
+        <label for="changemode-transit">Transit</label>
+
+        <input type="radio" name="type" id="changemode-driving">
+        <label for="changemode-driving">Driving</label>
+      </div>
+    </div>
+    <div id="myMap"></div>
+    <div id="right-panel">
+        <h2> <img src="./eyes.png" alt="eye"> <img src="./nose.png" alt="nose"> <img src="./eyes.png" alt="eye"></h2>
+        <ul id="places"></ul>
+        <button id="more">More results</button>
+    </div>
+</body>
+</html>
