@@ -12,14 +12,16 @@ function doFirst(){
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	});
 	map.getCenter();
+
 	new AutocompleteDirectionsHandler(map);
 	service = new google.maps.places.PlacesService(map);
+
 	//  more button change.
 	var getNextPage = null;
 	var moreButton = document.getElementById('more');
 	moreButton.onclick = function() {
-	  moreButton.disabled = true;
-	  if (getNextPage) getNextPage();
+		moreButton.disabled = true;
+		if (getNextPage) getNextPage();
 	};
 	// Perform a nearby search.
 	function Place(){
@@ -59,7 +61,7 @@ function doFirst(){
 }
 function clearMarkers() {
 	for (var i = 0; i < markers.length; i++) {
-	  markers[i].setMap(null);
+		markers[i].setMap(null);
 	}
 	markers = [];
 	let parent = document.getElementById('places');
@@ -117,7 +119,6 @@ function createMarkers(place, status) {
 		dest.value = li.innerText;
 	  });
 
-	//   bounds.extend(place.geometry.location);
 }
 
 // route enter
@@ -135,12 +136,10 @@ function AutocompleteDirectionsHandler(map) {
 	var modeSelector = document.getElementById('mode-selector');
 
 	var originAutocomplete = new google.maps.places.Autocomplete(originInput);
-	// Specify just the place data fields that you need.
 	originAutocomplete.setFields(['place_id']);
 
 	var destinationAutocomplete =
 		new google.maps.places.Autocomplete(destinationInput);
-	// Specify just the place data fields that you need.
 	destinationAutocomplete.setFields(['place_id']);
 
 	this.setupClickListener('changemode-walking', 'WALKING');
@@ -181,7 +180,7 @@ function AutocompleteDirectionsHandler(map) {
 		window.alert('Please select an option from the dropdown list.');
 		return;
 		}
-
+		// change the original place to the specific place_id
 		me.originPlaceId = 'ChIJV5wGcMarQjQRtgFBSJRJhK4';
 		me.destinationPlaceId = place.place_id;
 
