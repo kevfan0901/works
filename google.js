@@ -27,17 +27,16 @@ function doFirst(){
 	function Place(){
 		service.nearbySearch(
 		{location: map.getCenter(), radius: 300, type: ['restaurant']},
-		function(results, status, pagination) {
+		async function(results, status, pagination) {
 		  if (status !== 'OK') return;
 		  if (status === google.maps.places.PlacesServiceStatus.OK) {
-			var service = new google.maps.places.PlacesService(map);
-			for (var i = 0; i < results.length; i++) {
+			for (let i = 0; i < results.length; i++) {
 			  var request = {
 				placeId: results[i].place_id,
-				fields: ['name', 'place_id', 'geometry']
+				fields: ['name', 'geometry']
 			  }
 			//   console.log(results[i]);
-			  service.getDetails(request, createMarkers)
+			  await service.getDetails(request, createMarkers(results[i],status));
 			};
 			// get the start
 			var image = './meow.png';	
@@ -53,7 +52,9 @@ function doFirst(){
 		  getNextPage = pagination.hasNextPage && function() {
 			pagination.nextPage();
 		  };
-	})};
+		}
+		)
+	};
 	Place();
 	// move the map, search agian..x
 	google.maps.event.addListener(map, 'dragend', function() {
@@ -61,6 +62,7 @@ function doFirst(){
 		Place();
 	});
 }
+
 function clearMarkers() {
 	for (var i = 0; i < markers.length; i++) {
 		markers[i].setMap(null);
@@ -74,7 +76,7 @@ function clearMarkers() {
 
 
 function createMarkers(place, status) {
-	console.log(place);
+	// console.log(place);
 	var infowindow = new google.maps.InfoWindow();
 	var placesList = document.getElementById('places');
 	// var bounds = new google.maps.LatLngBounds();
