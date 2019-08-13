@@ -33,8 +33,10 @@ function doFirst(){
 			var service = new google.maps.places.PlacesService(map);
 			for (var i = 0; i < results.length; i++) {
 			  var request = {
-				placeId: results[i].place_id
+				placeId: results[i].place_id,
+				fields: ['name', 'place_id', 'geometry']
 			  }
+			//   console.log(results[i]);
 			  service.getDetails(request, createMarkers)
 			};
 			// get the start
@@ -72,12 +74,14 @@ function clearMarkers() {
 
 
 function createMarkers(place, status) {
+	console.log(place);
 	var infowindow = new google.maps.InfoWindow();
 	var placesList = document.getElementById('places');
 	// var bounds = new google.maps.LatLngBounds();
 
 	// run the markers
 	let lighting = './lighting.png';
+	if (status === google.maps.places.PlacesServiceStatus.OK) {
 	var marker = new google.maps.Marker({
 		map: map,
 		icon: lighting,
@@ -118,6 +122,7 @@ function createMarkers(place, status) {
 		let dest = document.getElementById('destination-input');
 		dest.value = li.innerText;
 	  });
+	};  
 
 }
 
